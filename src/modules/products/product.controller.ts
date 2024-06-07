@@ -60,7 +60,54 @@ const getAllProduct = async (req: Request, res: Response) => {
   }
 };
 
+const getProductById = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await ProductService.getProductById(productId);
+
+    //if product doesnot found
+    if (!result) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'Product not found' });
+    }
+
+    res.status(200).send({
+      success: true,
+      message: 'Product fetched successfully!',
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updateProduct = async (req: Request, res: Response) => {
+  const { productId } = req.params;
+  const updateData = req.body;
+
+  try {
+    const result = await ProductService.updateProductFromDB(
+      productId,
+      updateData,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Product updated successfully!',
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Something Went Wrong!',
+    });
+  }
+};
+
 export const ProductController = {
   createProduct,
   getAllProduct,
+  getProductById,
+  updateProduct,
 };

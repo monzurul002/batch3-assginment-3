@@ -1,6 +1,5 @@
-import app from "./app";
-const port = 5000;
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+import 'dotenv/config';
+import app from './app';
+app.listen(process.env.PORT, () => {
+  console.log(`Example app listening on port ${process.env.PORT}`);
 });

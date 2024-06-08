@@ -27,6 +27,7 @@ const getProductById = async (id: string) => {
 //udate product
 const updateProduct = async (id: string, payload: TProduct) => {
   const updateData = payload;
+  console.log(updateData);
   const result = await ProductModel.findByIdAndUpdate(
     { _id: id },
     { $set: updateData },

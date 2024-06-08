@@ -100,8 +100,8 @@ const updateProduct = async (req: Request, res: Response) => {
     const id = req.params.productId;
     const updatedData = req.body;
     const zodData = productValidationSchema.parse(updatedData);
-
     const result = await ProductService.updateProduct(id, zodData);
+
     res.status(200).json({
       success: true,
       message: 'Product updated successfully!',

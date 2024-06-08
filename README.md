@@ -28,11 +28,10 @@ PORT=5000
 Databse-url="mongodb://localhost:27017/batch3-assginment-3"
 ```
 
-# To run
+## To run this repogitory
 
 ```base
 $ npm run start:dev
-
 ```
 
 ## Check Out the API Endpoints

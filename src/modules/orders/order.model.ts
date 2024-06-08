@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { TOrder } from './order.interface';
 
 export const OrderSchema = new Schema<TOrder>({
@@ -7,3 +7,5 @@ export const OrderSchema = new Schema<TOrder>({
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
 });
+
+export const OrderModel = model<TOrder>('Order', OrderSchema);

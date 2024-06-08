@@ -4,6 +4,7 @@
   "description": "product data management",
   "main": "index.js",
   "scripts": {
+    "start": "node ./dist/server.js",
     "start:prod": "nodemon ./dist/server.js",
     "lint": "npx eslint .",
     "build": "tsc",

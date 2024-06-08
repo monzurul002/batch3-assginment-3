@@ -3,26 +3,34 @@ import { Request, Response } from 'express';
 import { ProductService } from './product.service';
 import { productValidationSchema } from './product.validation';
 
+//create product
 const createProduct = async (req: Request, res: Response) => {
   try {
     const product = req.body;
     const zodParsedData = productValidationSchema.parse(product);
 
     const result = await ProductService.createProductToDB(zodParsedData);
+
+    //send response
     res.status(200).send({
       success: true,
       message: 'Product created successfully!',
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: 'Something Went wrong!',
+      error: error,
+    });
   }
 };
 
+//get All products and Search data
 const getAllProduct = async (req: Request, res: Response) => {
   try {
     const query: any = {};
-    const search = req.query.searchTerm;
+    const search = req.query.searchTerm as string;
 
     if (search) {
       query.$or = [
@@ -60,12 +68,13 @@ const getAllProduct = async (req: Request, res: Response) => {
   }
 };
 
+//get product by id searching
 const getProductById = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
     const result = await ProductService.getProductById(productId);
 
-    //if product doesnot found
+    //if product doesn't found
     if (!result) {
       return res
         .status(404)
@@ -78,29 +87,31 @@ const getProductById = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: 'Something Went Wrong!',
+    });
   }
 };
 
+//update  a product
 const updateProduct = async (req: Request, res: Response) => {
-  const { productId } = req.params;
-  const updateData = req.body;
-
   try {
-    const result = await ProductService.updateProductFromDB(
-      productId,
-      updateData,
-    );
+    const id = req.params.productId;
+    const updatedData = req.body;
+    const zodData = productValidationSchema.parse(updatedData);
 
+    const result = await ProductService.updateProduct(id, zodData);
     res.status(200).json({
       success: true,
       message: 'Product updated successfully!',
       data: result,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: 'Something Went Wrong!',
+      message: error?.message || 'Something went wrong',
+      error: error,
     });
   }
 };

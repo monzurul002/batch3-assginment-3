@@ -15,8 +15,8 @@ const ProductVariantSchema = new Schema<TProductVariant>(
   },
   { _id: false },
 );
-//inventory schema
 
+//inventory schema
 const InventorySchema = new Schema<TInventory>({
   quantity: {
     type: Number,
@@ -61,4 +61,4 @@ const ProductSchema = new Schema<TProduct>({
 });
 
 // product schema model
-export const ProductModel = model('Product', ProductSchema);
+export const ProductModel = model<TProduct>('Product', ProductSchema);

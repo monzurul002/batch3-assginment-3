@@ -13,15 +13,15 @@ cd batch3-assginment-3
 
 ```
 
-## **2. Install Dependencies**
+**2. Install Dependencies**
 
 ```bash
 $ npm install
 ```
 
-**3. Configure Environment Variables**
+### **3. Configure Environment Variables**
 
-### Create a `.env` file in the root of the project and add the following environment variables:
+#### Create a `.env` file in the root of the project and add the following environment variables:
 
 ```bash
 PORT=5000
